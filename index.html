@@ -69,19 +69,30 @@
         margin: auto;
         display: flex;
         justify-content: center;
-        align-items: center;
         flex-direction: column;
-        padding: 1em;
         text-align: center;
+        word-wrap: break-word;
+        text-overflow: ellipsis;
     }
 
-
     @media (max-width:770px) {
-
         main {
-            width: 100%;
+            width: 80%;
 
         }
+    }
+
+    .mainText {
+        margin: 2em .5em;
+
+    }
+
+    .links {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 2em;
+
     }
 
     .button {
@@ -100,17 +111,6 @@
     .button:hover {
         background-color: #2186c4;
     }
-
-    .coordinates{
-        margin: 2em .5em;
-    }
-    .links{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        gap: 2em;
-    }
 </style>
 
 <body>
@@ -118,44 +118,49 @@
     <h1><span>Location</span> 🌍</h1>
     <hr>
     <main>
-        <span class="coordinates">
+        <span class="mainText">
             <button class="button" onclick="retrieveCoordinates()">Get Coordinates</button>
         </span>
-
-      <div class="links"></div>
-        
-
+        <div class="links"></div>
     </main>
-
 </body>
 
 <script>
     function showCoordinates(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
+        cords = `${latitude},${longitude}`
 
-        document.querySelector('.coordinates').innerHTML = `<h2>${latitude},${longitude}</h2>`;
-        document.querySelector('.links').innerHTML += ` <span> <u>Google Maps:</u><br> <a href="https://www.google.com/maps?q=${latitude},${longitude}">https://www.google.com/maps?q=${latitude},${longitude}</a></span> `;
-        document.querySelector('.links').innerHTML += ` <span> <u>Google Earth:</u><br> <a href="https://earth.google.com/web/search/${latitude},${longitude}">https://www.google.com/maps?q=${latitude},${longitude}</a></span> `;
+        googleMaps = ` https://www.google.com/maps/search/?api=1&query=${cords}`
+        
+        googleEarth = `https://earth.google.com/web/search/${cords}`
+        
+        
+        document.querySelector('.mainText').innerHTML = `<h2>${cords}</h2>`;
+        document.querySelector('.links').innerHTML += ` <span> <u>Google Maps:</u><br> <a href="${googleMaps}">${googleMaps}</a></span> `;
+        document.querySelector('.links').innerHTML += ` <span> <u>Google Earth:</u><br> <a href="${googleEarth}">${googleEarth}</a></span> `;
     }
 
     function showError(error) {
-        document.querySelector('.coordinates').textContent = "Error retrieving coordinates: " + error.message;
+        document.querySelector('.mainText').textContent = "Error retrieving coordinates: " + error.message;
     }
 
     function retrieveCoordinates() {
         if (navigator.geolocation) {
-            document.querySelector('.coordinates').innerHTML = '<div class="loader"></div>'
+            document.querySelector('.mainText').innerHTML = '<div class="loader"></div>'
             navigator.geolocation.getCurrentPosition(showCoordinates, showError);
         } else {
-            document.querySelector('.coordinates').textContent = "Geolocation is not supported by this browser.";
+            document.querySelector('.mainText').textContent = "Geolocation is not supported by this browser.";
         }
     }
 
-    function genLink(website, lat, long) {
 
-        
-    }
+
+
+
+
+
+
 </script>
 
 </html>
