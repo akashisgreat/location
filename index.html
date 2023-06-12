@@ -137,8 +137,8 @@
         
         
         document.querySelector('.mainText').innerHTML = `<h2>${cords}</h2>`;
-        document.querySelector('.links').innerHTML += ` <span> <u>Google Maps:</u><br> <a href="${googleMaps}">${googleMaps}</a></span> `;
-        document.querySelector('.links').innerHTML += ` <span> <u>Google Earth:</u><br> <a href="${googleEarth}">${googleEarth}</a></span> `;
+        document.querySelector('.links').innerHTML += ` <span> <u>Google Maps:</u><br> <a target="_blank" href="${googleMaps}">${googleMaps}</a></span> `;
+        document.querySelector('.links').innerHTML += ` <span> <u>Google Earth:</u><br> <a target="_blank" href="${googleEarth}">${googleEarth}</a></span> `;
     }
 
     function showError(error) {
